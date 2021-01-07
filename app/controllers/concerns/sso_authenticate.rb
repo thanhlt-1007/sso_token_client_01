@@ -7,10 +7,15 @@ module SsoAuthenticate
   end
 
   def sso_authenticate
-    if sso_user_signed_in?
-      sign_in_sso_user
+    if session['sso_token']
+      if sso_user_signed_in?
+        sign_in_sso_user
+      else
+        sign_out_sso_user
+        session.delete('sso_token')
+      end
     else
-      sign_out_sso_user
+      redirect_to sso_get_token_url
     end
   end
 

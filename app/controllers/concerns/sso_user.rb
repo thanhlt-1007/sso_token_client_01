@@ -4,7 +4,7 @@ module SsoUser
   def current_sso_user
     return @current_sso_user if @current_sso_user.present?
 
-    response ||= JSON.parse((Faraday.get sso_credential_url).body)
+    response ||= JSON.parse((Faraday.get sso_refresh_token_url).body)
     return if response['uuid'].blank?
 
     user = User.find_or_initialize_by(uuid: response['uuid'])

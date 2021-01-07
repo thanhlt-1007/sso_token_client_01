@@ -12,11 +12,17 @@ module SsoUrlHelper
   end
 
   def sso_signout_url
-    "#{ENV['SSO_PROVIDER_URL']}/users/sign_out"
+    params = { sso_redirect_url: root_url }.to_query
+    "#{ENV['SSO_PROVIDER_URL']}/users/sign_out?#{params}"
   end
 
-  def sso_credential_url
+  def sso_get_token_url
+    params = { sso_redirect_url: root_url }.to_query
+    "#{ENV['SSO_PROVIDER_URL']}/sso/credentials/get_token?#{params}"
+  end
+
+  def sso_refresh_token_url
     params = { sso_token: session['sso_token'] }.to_query
-    "#{ENV['SSO_PROVIDER_URL']}/sso/credentials/me.json?#{params}"
+    "#{ENV['SSO_PROVIDER_URL']}/sso/credentials/refresh_token.json?#{params}"
   end
 end

@@ -1,6 +1,9 @@
 h1
   = 'Welcome to SsoTokenProvider'
 
+p
+  = "sso_token: #{session['sso_token']}"
+
 - if user_signed_in?
   p
     = "Hello #{current_user.email}"
