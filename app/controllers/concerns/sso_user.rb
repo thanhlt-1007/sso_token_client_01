@@ -2,6 +2,8 @@ module SsoUser
   extend ActiveSupport::Concern
 
   def current_sso_user
+    return @current_sso_user if @current_sso_user.present?
+
     response ||= JSON.parse((Faraday.get sso_credential_url).body)
     return if response['uuid'].blank?
 
@@ -12,7 +14,7 @@ module SsoUser
       user.update(email: response['email'])
     end
 
-    user
+    @current_sso_user = user
   end
 
   def sso_user_signed_in?

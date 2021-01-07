@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include SsoAuthenticate
   include SsoSession
   include SsoUrlHelper
   include SsoUser

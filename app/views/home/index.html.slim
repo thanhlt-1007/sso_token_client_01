@@ -1,5 +1,6 @@
 h1
-  = "Welcome to SsoTokenClient01"
+  = 'Welcome to SsoTokenProvider'
 
-h1
-  = session['Test']
+- if user_signed_in?
+  p
+    = "Hello #{current_user.email}"
